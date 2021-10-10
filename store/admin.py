@@ -2,10 +2,16 @@ from django.contrib import admin
 from django.db import models
 
 # Register your models here.
-from .models import Product
+from .models import Product, Variation
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('product_name','price','stock','modified_date','category','is_available')
     prepopulated_fields = {'slug': ('product_name',)}
 
+class VariationAdmin(admin.ModelAdmin):
+    list_display =('product','variation_category','variation_value','is_active')
+    list_editable = ('is_active',) # nho thêm dấu ,
+    list_filter = ('variation_category','variation_value','is_active')
+
 admin.site.register(Product,ProductAdmin)
+admin.site.register(Variation,VariationAdmin)
